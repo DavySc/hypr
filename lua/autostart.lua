@@ -1,0 +1,18 @@
+-- Autostart
+hl.on("hyprland.start", function()
+    -- Portals / session environment (screen sharing)
+    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+    hl.exec_cmd("~/.config/hypr/scripts/xdg.sh")
+
+    hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
+    hl.exec_cmd("dunst")
+    hl.exec_cmd("~/.config/hypr/scripts/gtk.sh")
+    hl.exec_cmd("hypridle")
+    hl.exec_cmd("wl-paste --watch cliphist store")
+    hl.exec_cmd("hyprpaper")
+    hl.exec_cmd("~/.config/waybar/launch.sh")
+    hl.exec_cmd("nm-applet")
+    hl.exec_cmd("blueman-applet")
+    hl.exec_cmd("xrdb ~/.Xresources")
+    hl.exec_cmd("hyprctl setcursor Qogir-dark 24")
+end)
