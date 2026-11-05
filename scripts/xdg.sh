@@ -1,27 +1,6 @@
-#!/bin/bash
-# __  ______   ____
-# \ \/ /  _ \ / ___|
-#  \  /| | | | |  _
-#  /  \| |_| | |_| |
-# /_/\_\____/ \____|
-#
-# -----------------------------------------------------
-sleep 1
-
-# kill all possible running xdg-desktop-portals
-killall xdg-desktop-portal-hyprland
-killall xdg-desktop-portal-gnome
-killall xdg-desktop-portal-kde
-killall xdg-desktop-portal-lxqt
-killall xdg-desktop-portal-wlr
-killall xdg-desktop-portal-gtk
-killall xdg-desktop-portal
-sleep 1
-
-# start xdg-desktop-portal-hyprland
-/usr/lib/xdg-desktop-portal-hyprland &
-sleep 2
-
-# start xdg-desktop-portal
-/usr/lib/xdg-desktop-portal &
-sleep 1
+#!/usr/bin/env bash
+# Restart the xdg desktop portals (screen sharing / file pickers).
+# On NixOS they are dbus-activated systemd user services provided by
+# programs.hyprland and xdg.portal, so there are no /usr/lib binaries to start.
+dbus-update-activation-environment --systemd --all
+systemctl --user restart xdg-desktop-portal-hyprland.service xdg-desktop-portal.service

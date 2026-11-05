@@ -1,10 +1,12 @@
--- Autostart
+-- Autostart (NixOS)
 hl.on("hyprland.start", function()
-    -- Portals / session environment (screen sharing)
-    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
-    hl.exec_cmd("~/.config/hypr/scripts/xdg.sh")
+    -- Push the session environment (WAYLAND_DISPLAY, NIXOS_OZONE_WL, nvidia vars...)
+    -- into systemd/dbus first, then start the polkit agent: on NixOS it is a user
+    -- service (nixos-laptop modules/desktop.nix), not /usr/lib/polkit-gnome/...
+    -- xdg-desktop-portal(-hyprland) is dbus-activated by programs.hyprland, so
+    -- nothing to start by hand; scripts/xdg.sh restarts them if screen sharing breaks.
+    hl.exec_cmd("dbus-update-activation-environment --systemd --all && systemctl --user start polkit-gnome-authentication-agent-1.service")
 
-    hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
     hl.exec_cmd("dunst")
     hl.exec_cmd("~/.config/hypr/scripts/gtk.sh")
     hl.exec_cmd("hypridle")

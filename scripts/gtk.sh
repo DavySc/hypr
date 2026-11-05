@@ -1,8 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Source: https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
 
 config="$HOME/.config/gtk-3.0/settings.ini"
 if [ ! -f "$config" ]; then exit 1; fi
+# gsettings comes from glib; needs programs.dconf.enable on NixOS.
+command -v gsettings >/dev/null || exit 1
 
 gnome_schema="org.gnome.desktop.interface"
 gtk_theme="$(grep 'gtk-theme-name' "$config" | sed 's/.*\s*=\s*//')"

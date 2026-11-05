@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 config_file="$HOME/.config/hypr/lua/keybinding.lua"
 echo "Reading from: $config_file"
 

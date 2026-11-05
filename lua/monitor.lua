@@ -10,3 +10,6 @@ hl.workspace_rule({ workspace = "5", monitor = "HDMI-A-1", default = true })
 for i = 6, 9 do
     hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-1" })
 end
+
+-- Anything else (projectors, other external screens): preferred mode, placed automatically.
+hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #  ____                               _           _
 # / ___|  ___ _ __ ___  ___ _ __  ___| |__   ___ | |_
 # \___ \ / __| '__/ _ \/ _ \ '_ \/ __| '_ \ / _ \| __|
@@ -10,6 +10,7 @@
 # -----------------------------------------------------
 
 DIR="$HOME/Pictures/screenshots/"
+mkdir -p "$DIR"
 NAME="screenshot_$(date +%d%m%Y_%H%M%S).png"
 
 option2="Selected area"
@@ -22,14 +23,14 @@ choice=$(echo -e "$options" | rofi -dmenu -replace -theme ~/.config/rofi/launche
 case $choice in
     $option2)
         grim -g "$(slurp)" "$DIR$NAME"
-        xclip -selection clipboard -t image/png -i "$DIR$NAME"
+        wl-copy --type image/png < "$DIR$NAME"
         notify-send "Screenshot created and copied to clipboard" "Mode: Selected area"
         swappy -f "$DIR$NAME"
     ;;
     $option3)
         sleep 3
         grim "$DIR$NAME"
-        xclip -selection clipboard -t image/png -i "$DIR$NAME"
+        wl-copy --type image/png < "$DIR$NAME"
         notify-send "Screenshot created and copied to clipboard" "Mode: Fullscreen"
         swappy -f "$DIR$NAME"
     ;;
